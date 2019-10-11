@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
 
+"""Backend for www.dasoertliche.de"""
+
 import urllib.request
 import urllib.parse
 from bs4 import BeautifulSoup
 
+
 def search(params):
+    """Reverse search only"""
+
     if 'hm' in params and params['hm'] != '*':
         return _parse(_fetch_reverse(params['hm']))
 
     return []
 
+
 def _fetch_reverse(phone):
-    URL = 'https://www.dasoertliche.de/Controller?form_name=search_inv&ph={}'
-    with urllib.request.urlopen(URL.format(urllib.parse.quote(phone))) as resp:
+    url_base = 'https://www.dasoertliche.de/Controller?form_name=search_inv&{}'
+    url = url_base.format(urllib.parse.urlencode({'ph': phone}))
+    with urllib.request.urlopen(url) as resp:
         return resp.read()
+
 
 def _parse(html):
     soup = BeautifulSoup(html, 'html.parser')
