@@ -23,7 +23,7 @@ class Gigaset:
         results = []
 
         if 'phone' in params:
-            params['phone'] = Gigaset._fix_phone(params[phone])
+            params['phone'] = Gigaset._fix_phone(params['phone'])
 
         for mod in backends:
             req = executor.submit(mod.search, params)
