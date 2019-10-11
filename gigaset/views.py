@@ -21,18 +21,19 @@ def search():
     count = int(request.args.get('count', '16'))
     limit = int(request.args.get('limit', '2048'))
 
-    view = results[first + 1 : first + 1 + count]
+    view = results[first - 1: first - 1 + count]
+    view = view[:limit]
 
     root = ET.Element('list')
     root.attrib['response'] = 'get_list'
     root.attrib['type'] = 'pb'
     root.attrib['total'] = str(len(results))
 
-    if results:
+    if view:
         root.attrib['first'] = str(first)
         root.attrib['last'] = str(len(results))
 
-        for entry in results:
+        for entry in view:
             xml_entry = ET.SubElement(root, 'entry')
             for x in entry:
                 xml_x = ET.SubElement(xml_entry, x)
