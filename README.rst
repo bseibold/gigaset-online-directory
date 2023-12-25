@@ -34,3 +34,12 @@ After deployment, the app should be accessible via a browser. If you deployed
 the app to http://www.example.com/gigaset, then configure
 http://www.example.com/gigaset/search as the server address in the web config
 interface of your gigaset base station.
+
+Local Phonebook
+-----
+The 'local' backend option let's you maintain a list of phone numbers and display names. 
+The local phonebook is a simple json file.
+
+Known Issues
+-----
+The service of *Das Telefonbuch* is currently returning *403 Forbidden*. 

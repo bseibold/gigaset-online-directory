@@ -33,6 +33,8 @@ setup(
     install_reqs=[
         'Flask>=1.0.0',
         'beautifulsoup4>=4.8.0',
+        'phonenumbers',
+        'waitress',
     ],
     zip_safe=False,
 )

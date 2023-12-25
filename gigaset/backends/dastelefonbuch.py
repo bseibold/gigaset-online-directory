@@ -52,9 +52,14 @@ def _fetch_reverse(phone):
 
     url_base = 'https://www.dastelefonbuch.de/R%C3%BCckw%C3%A4rts-Suche/{}'
     url = url_base.format(urllib.parse.quote(phone))
-    with urllib.request.urlopen(url) as resp:
-        return resp.read()
 
+    try:
+        with urllib.request.urlopen(url) as resp:
+            return resp.read()
+    except urllib.error.URLError:
+            # catches 404 responses returned from dasoertliche.de
+            return ""
+    
 
 def _clean(html):
     """Remove obfuscation from HTML"""
@@ -102,6 +107,7 @@ def _parse(html):
     soup = BeautifulSoup(html, 'html.parser')
     hits = soup.find_all('div', class_='entry')
     results = []
+
     for hit in hits:
 
         result = {}
