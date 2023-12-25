@@ -2,11 +2,12 @@
 
 """Gigaset phonebook webapp"""
 
-from importlib import import_module
 import concurrent.futures
-from flask import Flask
-import phonenumbers
 import logging
+from importlib import import_module
+
+import phonenumbers
+from flask import Flask
 
 __version__ = "0.1"
 

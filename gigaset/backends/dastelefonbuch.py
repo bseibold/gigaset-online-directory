@@ -3,9 +3,10 @@
 """Backend for www.dastelefonbuch.de"""
 
 import re
-import urllib.request
-import urllib.parse
 import urllib.error
+import urllib.parse
+import urllib.request
+
 from bs4 import BeautifulSoup
 
 _RE_ADDRESS = re.compile(r"(.*), (\d{5}) (.*)")

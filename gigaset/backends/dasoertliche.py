@@ -2,9 +2,10 @@
 
 """Backend for www.dasoertliche.de"""
 
-import urllib.request
-import urllib.parse
 import urllib.error
+import urllib.parse
+import urllib.request
+
 from bs4 import BeautifulSoup
 
 

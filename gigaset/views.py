@@ -4,8 +4,10 @@
 
 import io
 import xml.etree.ElementTree as ET
-from flask import Response, request, render_template, abort
-from gigaset import app, Gigaset
+
+from flask import Response, abort, render_template, request
+
+from gigaset import Gigaset, app
 
 
 @app.route("/")
