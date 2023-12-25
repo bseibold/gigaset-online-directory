@@ -38,7 +38,7 @@ class Gigaset:
 
         try:
             pn = phonenumbers.parse(phone, region=app.config["COUNTRY"])
-        except phonenumbers.NumberParseException as e:
+        except phonenumbers.NumberParseException:
             app.logger.debug("Phone number {} not valid".format(phone))
             return phone
 
@@ -71,7 +71,7 @@ class Gigaset:
                 if req.done():
                     app.logger.debug("Request Done: {}".format(req.result()))
                     results += req.result()
-            except:
+            except Exception:
                 if app.config["DEBUG"]:
                     raise
 
@@ -80,4 +80,4 @@ class Gigaset:
         return results
 
 
-from . import views
+from . import views  # noqa: F401, E402

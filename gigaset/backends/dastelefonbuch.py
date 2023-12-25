@@ -10,6 +10,12 @@ from bs4 import BeautifulSoup
 
 _RE_ADDRESS = re.compile(r"(.*), (\d{5}) (.*)")
 
+UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/35.0.1916.47 Safari/537.36"
+)
+
 
 def search(params):
     """Search or reverse search"""
@@ -48,9 +54,7 @@ def _fetch(name, city):
     url = url_base.format(urllib.parse.urlencode({"kw": name, "ci": city}))
     req = urllib.request.Request(
         url,
-        headers={
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36",
-        },
+        headers={"User-Agent": UA},
     )
 
     with urllib.request.urlopen(req) as resp:
@@ -96,7 +100,7 @@ def _parse_phone(hit, result):
                 result["mb"] = phone_nr
             elif "icon_phone" in phone.i["class"]:
                 result["hm"] = phone_nr
-    except:
+    except Exception:
         pass
 
 
