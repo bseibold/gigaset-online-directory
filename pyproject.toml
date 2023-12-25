@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools"]
+build.backend = "setuptools.build_meta"
+
+[project]
+name = "gigaset"
+authors = [
+    {name = "Bernhard Seibold", email="mail@bernhard-seibold.de"},
+]
+description = """\
+    A small web-app that serves as a proxy for phone
+    number lookups for Gigaset DECT base stations"""
+readme = "README.rst"
+license = {text = "MIT"}
+requires-python = ">=3.2"
+classifiers=[
+    "Development Status :: 3 - Alpha",
+    "Framework :: Flask",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+    "Topic :: Communications :: Telephony",
+]
+dynamic = ["version"]
+
+dependencies = [
+    "Flask>=1.0.0",
+    "beautifulsoup4>=4.8.0",
+]
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = {attr = "gigaset.__version__"}
