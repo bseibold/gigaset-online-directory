@@ -6,6 +6,8 @@ from importlib import import_module
 import concurrent.futures
 from flask import Flask
 
+__version__ = "0.1"
+
 app = Flask(__name__)
 app.config.from_envvar('GIGASET_SETTINGS')
 
