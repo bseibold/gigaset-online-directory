@@ -4,6 +4,7 @@
 
 import urllib.request
 import urllib.parse
+import urllib.error
 from bs4 import BeautifulSoup
 
 
@@ -11,13 +12,15 @@ def search(params):
     """Reverse search only"""
 
     if 'hm' in params and params['hm'] != '*':
-        return _parse(_fetch_reverse(params['hm']))
-
+        try:
+            return _parse(_fetch_reverse(params['hm']))
+        except urllib.error.URLError:
+            return []
     return []
 
 
 def _fetch_reverse(phone):
-    url_base = 'https://www.dasoertliche.de/Controller?form_name=search_inv&{}'
+    url_base = 'https://www.dasoertliche.de/?form_name=search_inv&{}'
     url = url_base.format(urllib.parse.urlencode({'ph': phone}))
     with urllib.request.urlopen(url) as resp:
         return resp.read()
