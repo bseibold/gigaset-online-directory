@@ -17,7 +17,9 @@ def search(params):
     if 'hm' in params and params['hm'] != '*':
         phone = params['hm']
         try:
-            return _parse(_fetch_reverse(phone))
+            html = _fetch(phone, "")
+            result = _parse(html)
+            return result
         except urllib.error.HTTPError:
             return []
     else:
@@ -34,7 +36,7 @@ def search(params):
                        if 'type' in r and r['type'] == params['type']]
             return results
         except urllib.error.HTTPError:
-            raise
+            return []
     return []
 
 
@@ -43,23 +45,13 @@ def _fetch(name, city):
 
     url_base = 'https://www.dastelefonbuch.de/Suche?{}'
     url = url_base.format(urllib.parse.urlencode({'kw': name, 'ci': city}))
-    with urllib.request.urlopen(url) as resp:
+    req = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36',
+    })
+
+    with urllib.request.urlopen(req) as resp:
         return resp.read()
 
-
-def _fetch_reverse(phone):
-    """Retrieve page for reverse search"""
-
-    url_base = 'https://www.dastelefonbuch.de/R%C3%BCckw%C3%A4rts-Suche/{}'
-    url = url_base.format(urllib.parse.quote(phone))
-
-    try:
-        with urllib.request.urlopen(url) as resp:
-            return resp.read()
-    except urllib.error.URLError:
-            # catches 404 responses returned from dasoertliche.de
-            return ""
-    
 
 def _clean(html):
     """Remove obfuscation from HTML"""
@@ -72,13 +64,16 @@ def _clean(html):
 
 
 def _parse_name(hit, result):
-    name = hit.select_one('span[itemprop="name"]').text.strip()
+    name = hit.find("div", class_="name").attrs["title"]
     result['ln'] = name
     match = re.match(r'(.*?) (.*)', name)
     if ('type', 'yp') not in result.items() and match:
         (last, first) = re.match(r'(.*?) (.*)', name).group(1, 2)
         result['fn'] = first
         result['ln'] = last
+        result['type'] = 'pb'
+    else:
+        result['type'] = 'yp'
 
 
 def _parse_address(hit, result):
@@ -105,23 +100,10 @@ def _parse(html):
     """Parse HTML for results"""
 
     soup = BeautifulSoup(html, 'html.parser')
-    hits = soup.find_all('div', class_='entry')
+    hits = soup.find_all('div', class_='vcard')
     results = []
-
     for hit in hits:
-
         result = {}
-
-        if hit.find('a', class_='linkedin_url'):
-            continue
-
-        if hit.attrs.get('itemtype') == 'http://schema.org/Organization':
-            result['type'] = 'yp'
-        elif hit.attrs.get('itemtype') == 'http://schema.org/Person':
-            result['type'] = 'pb'
-        else:
-            continue
-
 
         _parse_name(hit, result)
         _parse_address(hit, result)

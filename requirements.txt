@@ -1,4 +1,0 @@
-flask
-beautifulsoup4
-phonenumbers
-waitress
