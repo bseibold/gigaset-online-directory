@@ -2,12 +2,11 @@
 
 import os
 
-os.environ['GIGASET_SETTINGS'] = "../settings.py"
+os.environ["GIGASET_SETTINGS"] = "../settings.py"
 import gigaset
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     gigaset.app.debug = gigaset.app.config["DEBUG"]
-    
-    gigaset.app.run(host='0.0.0.0', port=gigaset.app.config["PORT"])
 
+    gigaset.app.run(host="0.0.0.0", port=gigaset.app.config["PORT"])

@@ -1,5 +1,5 @@
 gigaset
-=======
+#######
 
 This packages is intended to be used with Gigaset DECT base stations that are
 connected via Ethernet / IP. These base stations support lookup of phone
@@ -37,9 +37,9 @@ interface of your gigaset base station.
 
 Local Phonebook
 -----
-The 'local' backend option let's you maintain a list of phone numbers and display names. 
+The 'local' backend option let's you maintain a list of phone numbers and display names.
 The local phonebook is a simple json file.
 
 Known Issues
 -----
-The service of *Das Telefonbuch* is currently returning *403 Forbidden*. 
+The service of *Das Telefonbuch* is currently returning *403 Forbidden*.
