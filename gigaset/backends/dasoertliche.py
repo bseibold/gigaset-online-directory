@@ -7,17 +7,16 @@ import urllib.parse
 import urllib.error
 from bs4 import BeautifulSoup
 
-
 def search(params):
     """Reverse search only"""
 
     if 'hm' in params and params['hm'] != '*':
         try:
-            return _parse(_fetch_reverse(params['hm']))
+            phone = params['hm'].replace("+", "00")
+            return _parse(_fetch_reverse(phone), phone)
         except urllib.error.URLError:
             return []
     return []
-
 
 def _fetch_reverse(phone):
     url_base = 'https://www.dasoertliche.de/?form_name=search_inv&{}'
@@ -26,13 +25,15 @@ def _fetch_reverse(phone):
         return resp.read()
 
 
-def _parse(html):
+def _parse(html, phone):
     soup = BeautifulSoup(html, 'html.parser')
     hits = soup.find_all('div', attrs={'class': 'hit'})
+    
     results = []
     for hit in hits:
         result = {}
         result['ln'] = hit.a.text.strip()
+        result["hm"] = phone
 
         if result:
             results.append(result)
