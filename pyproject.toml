@@ -32,3 +32,6 @@ zip-safe = false
 
 [tool.setuptools.dynamic]
 version = {attr = "gigaset.__version__"}
+
+[tool.isort]
+profile = "black"

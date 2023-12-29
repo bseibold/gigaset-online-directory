@@ -1,18 +1,18 @@
 # backends to be enabled
 BACKENDS = [
-    'gigaset.backends.local',
-#    'gigaset.backends.dastelefonbuch',
-    'gigaset.backends.dasoertliche',
+    "gigaset.backends.local",
+    #    'gigaset.backends.dastelefonbuch',
+    "gigaset.backends.dasoertliche",
 ]
 
 # own countrycode
-COUNTRY = 'DE'
+COUNTRY = "DE"
 
 # own area code
-AREACODE = '030'
+AREACODE = "030"
 
 # enable/disable debug messages
 DEBUG = True
 
 # port for listening network socket
-PORT=12345
+PORT = 12345
