@@ -38,7 +38,7 @@ class Gigaset:
             phone = app.config["AREACODE"] + phone
 
         try:
-            pn = phonenumbers.parse(phone, region=app.config["COUNTRY"])
+            pn = phonenumbers.parse(phone, region=app.config.get("COUNTRY"))
         except phonenumbers.NumberParseException:
             app.logger.debug("Phone number {} not valid".format(phone))
             return phone
