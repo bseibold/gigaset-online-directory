@@ -25,6 +25,7 @@ dynamic = ["version"]
 dependencies = [
     "Flask>=1.0.0",
     "beautifulsoup4>=4.8.0",
+    "phonenumbers",
 ]
 
 [tool.setuptools]
