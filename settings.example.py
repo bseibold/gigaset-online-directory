@@ -13,6 +13,3 @@ AREACODE = "030"
 
 # enable/disable debug messages
 DEBUG = True
-
-# port for listening network socket
-PORT = 12345
