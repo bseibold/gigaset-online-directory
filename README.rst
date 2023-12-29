@@ -42,4 +42,4 @@ The local phonebook is a simple json file.
 
 Known Issues
 -----
-The service of *Das Telefonbuch* is currently returning *403 Forbidden*.
+Please refer to the issues section on Github.

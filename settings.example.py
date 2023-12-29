@@ -1,7 +1,7 @@
 # backends to be enabled
 BACKENDS = [
     "gigaset.backends.local",
-    #    'gigaset.backends.dastelefonbuch',
+    "gigaset.backends.dastelefonbuch",
     "gigaset.backends.dasoertliche",
 ]
 
