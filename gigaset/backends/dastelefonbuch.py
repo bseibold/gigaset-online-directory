@@ -77,7 +77,7 @@ def _parse_name(hit, result):
     result["ln"] = name
     match = re.match(r"(.*?) (.*)", name)
     if ("type", "yp") not in result.items() and match:
-        (last, first) = re.match(r"(.*?) (.*)", name).group(1, 2)
+        last, first = re.match(r"(.*?) (.*)", name).group(1, 2)
         result["fn"] = first
         result["ln"] = last
         result["type"] = "pb"
@@ -87,7 +87,7 @@ def _parse_name(hit, result):
 
 def _parse_address(hit, result):
     address = hit.find("a", class_="addr")["title"].strip()
-    (street, zipcode, city) = _RE_ADDRESS.match(address).group(1, 2, 3)
+    street, zipcode, city = _RE_ADDRESS.match(address).group(1, 2, 3)
     result["st"] = street
     result["ct"] = city
 
